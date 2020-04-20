@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+@import "_fonts";
+
+body{
+    background-color: #883F22;
+    background-color: #253866;
+
+    
+    color: white;
+    font-family: lunchtype24expanded_regular;
+}
+
+#root{
+    margin: 0 auto;
+    padding: .3rem; 
+    max-width: 1200px;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+@import "_navbar";
+@import "_main";
+@import "_card";
