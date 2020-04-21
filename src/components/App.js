@@ -11,7 +11,7 @@ import "../styles/_app.scss";
 const App = () => {
     return(
         <div className={"app"}>
-            <Navbar />
+            {/* <Navbar /> */}
             <Main />
         </div>
     )
