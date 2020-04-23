@@ -8,16 +8,15 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar_left">
-        <Link to="/"><h2 className="navbar_logo">SOLBERGA Tennisklubb</h2></Link>
+        <Link to="/"> <h2 className="navbar_logo">SOLBERGA Tennisklubb</h2></Link>
       </div>
       <div className="navbar_right">
         <ul>
           <li>
-            {/* <a href="/card">Mina bokningar</a> */}
-            <Link to ="/card">Mina bokningar</Link>
+            <Link to="/Bookings">Mina bokningar</Link>
           </li>
           <li>
-            <a href="#">Logga ut</a>
+          <Link to="/Logout">Logga ut</Link>
           </li>
         </ul>
       </div>
