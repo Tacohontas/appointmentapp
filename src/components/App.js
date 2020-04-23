@@ -1,9 +1,6 @@
 import React from "react";
-import Navbar from "./Navbar";
 import Main from "./Main";
 
-
-import faker from "faker"; // dummydata från fakerjs
 import "../styles/_app.scss";
 
 
