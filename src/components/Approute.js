@@ -4,6 +4,7 @@ import Card from "./Card";
 import App from "./App";
 import NotFound from "./NotFound";
 import Navbar from "./Navbar";
+import Eventtest from "./Eventtest";
 
 const Approute = () => {
   return (
@@ -13,6 +14,7 @@ const Approute = () => {
         <Route exact path="/"     component={App} ></Route> {/* Default eller landing. */}
         <Route exact path="/card" component={Card}></Route>
         <Route exact path="/*"    component={NotFound}></Route> {/* "/*" är var den ska hamna om man skriver in en route som ej finns. */}
+        <Eventtest />
       </BrowserRouter>
     </div>
   );
