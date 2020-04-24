@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Card = (props) => {
   return (
@@ -7,10 +7,10 @@ const Card = (props) => {
       <img src={props.image} className={"card_img-top"} alt={"People"} />
       <div className={"card__body"}>
         <h3 className={"card__title"}>{props.title}</h3>
-        <p className={"card__text"}>
-         Träna upp dina slag tillsammans med en av våra professionella tennistränare. 
-        </p>
-        <Link to="/Book" className={"card__button"}>Boka</Link>
+        <p className={"card__text"}>{props.desc}</p>
+        <Link to={props.link} className={"card__button"}>
+          {props.label}
+        </Link>
       </div>
     </div>
   );

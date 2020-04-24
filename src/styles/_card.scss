@@ -7,6 +7,7 @@
   border-radius: 0.25rem;
   justify-self: center;
   margin-bottom: 0.75rem;
+  min-height: 288px;
 }
 
 .card_img-top {
@@ -19,6 +20,7 @@
 
 .card__body {
   padding: 1.25rem;
+  display: grid;
 }
 
 .card__title {
@@ -34,7 +36,6 @@
 
 .card__button {
   background: #709e4a;
-
   font-family: lunchtype24expanded_regular;
   font-size: 1rem;
   text-align: center;

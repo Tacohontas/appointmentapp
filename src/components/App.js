@@ -1,16 +1,10 @@
 import React from "react";
-import Main from "./Main";
+import Main from "../pages/Main";
 
 import "../styles/_app.scss";
 
-
-
 const App = () => {
-    return(
-        <div className={"app"}>
-            <Main />
-        </div>
-    )
-}
+  return <Main />;
+};
 
 export default App;
