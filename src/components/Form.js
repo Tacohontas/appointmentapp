@@ -1,63 +1,29 @@
 import React, { Component } from "react";
 
 class Form extends Component {
-  constructor(props) {
-    super(props);
+  state = { dataFromUser: "" };
 
-    this.state = {
-      customerName: undefined,
-      appointmentTime: undefined,
-      mobile: undefined,
-    };
-  }
-
-  handleOnChangeName = (e) => {
-    this.setState({ customerName: e.target.value });
-  };
-  handleOnChangeTime = (e) => {
-    this.setState({ appointmentTime: e.target.value });
-  };
-  handleOnChangeMobile = (e) => {
-    this.setState({ mobile: e.target.value });
-  };
-
-  // Skapa en metod
-  handleOnSubmit(e) {
+  onSubmitForm(e) {
     e.preventDefault();
-    // this.setState({});
+    console.log(e.target.elements.test.value);
+    //   console.log(e.target.elements.test2.value);
+
+    this.setState({ dataFromUser: e.target.elements.test.value });
   }
 
-  // Uppdatera state med setState()
-
-  // Form kommer att anropa metoden med hjälp av event
+  onChangeInput(e){
+    this.setState({ dataFromUser: e.target.value });
+  }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleOnSubmit}>
-          <input
-            type={"text"}
-            placeholder={"Ange ditt namn"}
-            onChange={this.handleOnChangeName}
-          />
-          <input
-            type={"text"}
-            placeholder={"Ange önskat datum"}
-            onChange={this.handleOnChangeTime}
-          />
-          <input
-            type={"number"}
-            placeholder={"Ange ditt telefonnummer"}
-            onChange={this.handleOnChangeMobile}
-          />
-          <button type={"submit"} onSubmit={this.handleOnSubmit}>
-            Boka
-          </button>
-
-          <div>{this.state.customerName}</div>
-          <div>{this.state.appointmentTime}</div>
-          <div>{this.state.mobile}</div>
+        <form onSubmit={this.onSubmitForm.bind(this)}>
+          <input onChange={this.onChangeInput.bind(this)}type="text" name={"test"}></input>
+          {/* <input type="text" name={"test2"}></input> */}
+          <button>Submit</button>
         </form>
+        <div>{this.state.dataFromUser}</div>
       </div>
     );
   }

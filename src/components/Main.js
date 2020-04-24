@@ -13,6 +13,7 @@ const Main = () => {
       <Card image={"tennis_6.jpg"} />
       <Card image={"tennis_1.jpg"} />
       <Card image={"tennis_1.jpg"} /> */}
+      <Form/>
 
     </div>
   );
