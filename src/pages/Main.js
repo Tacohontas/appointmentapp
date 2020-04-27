@@ -1,50 +1,36 @@
-import React from "react";
+import React, { Component } from "react";
 import Card from "../components/Card";
+import axios from "axios";
 
-const DESC1 =
-  "Träna upp din serve tillsammans med en av våra grymma tennistränare!";
-const DESC2 =
-  "Träna upp din forehand och backhand med en av våra duktiga tränare!";
-const DESC3 = "Bli coachad av en erfaren tränare i en träningsmatch!";
-const DESC4 = "Aldrig hållt en racket förut? Ingen fara! Vi hjälper dig!";
+class Main extends Component {
+  state = {
+    products: [],
+  };
 
-const Main = () => {
-  return (
-    <div className={"main"}>
-      <Card
-        image={"tennis_1.jpg"}
-        title={"Serveträning"}
-        link={"/Book"}
-        label={"Boka"}
-        desc={DESC1}
-      />
-      <Card
-        image={"tennis_2.jpg"}
-        title={"Grundslagsträning"}
-        link={"/Book"}
-        label={"Boka"}
-        desc={DESC2}
-      />
-      <Card
-        image={"tennis_3.jpg"}
-        title={"Matchträning"}
-        link={"/Book"}
-        label={"Boka"}
-        desc={DESC3}
-      />
-      <Card
-        image={"tennis_4.jpg"}
-        title={"Nybörjarkurs"}
-        link={"/Book"}
-        label={"Boka"}
-        desc={DESC4}
-      />
-      {/* <Card image={"tennis_5.jpg"} />
-      <Card image={"tennis_6.jpg"} />
-      <Card image={"tennis_1.jpg"} />
-      <Card image={"tennis_1.jpg"} /> */}
-    </div>
-  );
-};
+  onClickApi() {
+    axios.get("http://localhost:1337/products").then((res) => {
+      this.setState({ products: res.data });
+    });
+  }
+
+  render() {
+    return (
+      <div className={"main"}>
+        {this.state.products.map((product) => (
+          <Card
+            image={"http://localhost:1337"+ product.image.formats.thumbnail.url}
+            title={product.title}
+            desc={product.description}
+            price={product.price}
+            label={"Boka"}
+            link={"/Book"}
+          />
+        ))}
+
+        <button onClick={this.onClickApi.bind(this)}>Hämta</button>
+      </div>
+    );
+  }
+}
 
 export default Main;
