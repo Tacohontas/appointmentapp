@@ -25,24 +25,6 @@ const Main = () => {
         label={"Boka"}
         desc={DESC2}
       />
-      <Card
-        image={"tennis_3.jpg"}
-        title={"Matchträning"}
-        link={"/Book"}
-        label={"Boka"}
-        desc={DESC3}
-      />
-      <Card
-        image={"tennis_4.jpg"}
-        title={"Nybörjarkurs"}
-        link={"/Book"}
-        label={"Boka"}
-        desc={DESC4}
-      />
-      {/* <Card image={"tennis_5.jpg"} />
-      <Card image={"tennis_6.jpg"} />
-      <Card image={"tennis_1.jpg"} />
-      <Card image={"tennis_1.jpg"} /> */}
     </div>
   );
 };
