@@ -15,6 +15,9 @@
     "description": {
       "type": "string"
     },
+    "price": {
+      "type": "decimal"
+    },
     "image": {
       "model": "file",
       "via": "related",
@@ -25,9 +28,6 @@
       ],
       "plugin": "upload",
       "required": false
-    },
-    "price": {
-      "type": "decimal"
     }
   }
 }

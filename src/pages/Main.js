@@ -7,7 +7,8 @@ class Main extends Component {
     products: [],
   };
 
-  onClickApi() {
+
+  async componentDidMount() {
     axios.get("http://localhost:1337/products").then((res) => {
       this.setState({ products: res.data });
     });
@@ -18,16 +19,15 @@ class Main extends Component {
       <div className={"main"}>
         {this.state.products.map((product) => (
           <Card
-            image={"http://localhost:1337"+ product.image.formats.thumbnail.url}
+            key={product.id}
             title={product.title}
             desc={product.description}
             price={product.price}
+            image={"http://localhost:1337" + product.image.url}
             label={"Boka"}
             link={"/Book"}
           />
         ))}
-
-        <button onClick={this.onClickApi.bind(this)}>Hämta</button>
       </div>
     );
   }

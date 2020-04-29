@@ -6,10 +6,13 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar_left">
-        <Link to="/"> <h2 className="navbar_logo">SOLBERGA Tennisklubb</h2></Link>
+        <Link to="/"> <h2 className="navbar_logo">Herrängens Tennisklubb</h2></Link>
       </div>
       <div className="navbar_right">
         <ul>
+          <li>
+            <Link to="/Admin">Admin</Link>
+          </li>
           <li>
             <Link to="/Bookings">Mina bokningar</Link>
           </li>
