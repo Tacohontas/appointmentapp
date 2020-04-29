@@ -11,6 +11,9 @@ const Navbar = () => {
       <div className="navbar_right">
         <ul>
           <li>
+            <Link to="/fileupload">fileupload</Link>
+          </li>
+          <li>
             <Link to="/Admin">Admin</Link>
           </li>
           <li>
