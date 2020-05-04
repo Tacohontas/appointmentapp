@@ -17,15 +17,12 @@ class Adminform extends Component {
       price: e.target.elements.price.value,
     });
 
-
-   /* --- Ladda upp bild och referera till post --- */
+    /* --- Ladda upp bild och referera till post --- */
     const data = new FormData();
     data.append("files", this.state.image);
-    data.append("ref", "product");      // Refererar till table
+    data.append("ref", "product"); // Refererar till table
     data.append("refId", res.data.id); // Hämtat post-id från vår post vi skapade.
-    data.append("field", "image");    // Refererar till column i vår table
-
-    
+    data.append("field", "image"); // Refererar till column i vår table
 
     const resPic = await axios.post("http://localhost:1337/upload", data);
     console.log(resPic);

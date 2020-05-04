@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Card from "../components/Card";
 import axios from "axios";
-import Adminform from "../components/Adminform";
 
 class Main extends Component {
   state = {
@@ -29,7 +28,6 @@ class Main extends Component {
             link={"/Book"}
           />
         ))}
-        <Adminform/>
       </div>
     );
   }

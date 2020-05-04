@@ -34,22 +34,23 @@ class AdminLogin extends Component {
       });
   }
 
-  onSubmitLogin(e){
+  onSubmitLogin(e) {
     e.preventDefault();
     axios
       .post("http://localhost:1337/auth/local/", {
-        identifier:  e.target.elements.email.value,
+        identifier: e.target.elements.email.value, // Vad som ska matchas mot password
         password: e.target.elements.password.value,
       })
       .then((response) => {
         console.log("Well done");
         console.log("User profile", response.data.user);
         console.log("User token", response.data.jwt);
+        this.props.userInfo(response.data.jwt);
       })
       .catch((error) => {
         console.log("An error occurred", error);
       });
-  };
+  }
 
   render() {
     return (

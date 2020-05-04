@@ -5,9 +5,8 @@ import myBookings from "../pages/myBookings";
 import App from "./App";
 import Navbar from "./Navbar";
 import Book from "../pages/Book";
-import Adminform from "./Adminform";
-import FileUpload from "./FileUpload";
-import AdminLogin from "./Authentication/AdminLogin";
+import UploadForm from "./Upload";
+import AdminZone from "../pages/Adminzone";
 
 const Approute = () => {
   return (
@@ -18,9 +17,8 @@ const Approute = () => {
           <Route exact path="/" component={App} />
           <Route exact path="/Bookings" component={myBookings} />
           <Route exact path="/Book" component={Book} />
-          <Route exact path="/Admin" component={Adminform} />
-          <Route exact path="/Fileupload" component={FileUpload} />
-          <Route exact path="/Adminlogin" component={AdminLogin} />
+          <Route exact path="/Upload" component={UploadForm} />
+          <Route exact path="/Admin" component={AdminZone} />
         </Switch>
       </BrowserRouter>
     </div>
