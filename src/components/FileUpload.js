@@ -4,7 +4,7 @@ import axios from "axios";
 
 class FileUpload extends Component {
   state = {
-    image: " ",
+    image: undefined,
   };
 
   eventChange(e) {
@@ -14,17 +14,14 @@ class FileUpload extends Component {
   async onSubmitToApi(e) {
     e.preventDefault();
 
-
-        /* --- Lägga till fil --- */
+    /* --- Lägga till fil --- */
 
     const data = new FormData();
     data.append("files", e.target.elements.files.files[0]);
 
     const res = await axios.post("http://localhost:1337/upload/", data);
 
-console.log(res);
-
-
+    console.log(res);
   }
 
   render() {

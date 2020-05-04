@@ -7,6 +7,7 @@ import Navbar from "./Navbar";
 import Book from "../pages/Book";
 import Adminform from "./Adminform";
 import FileUpload from "./FileUpload";
+import AdminLogin from "./Authentication/AdminLogin";
 
 const Approute = () => {
   return (
@@ -18,7 +19,8 @@ const Approute = () => {
           <Route exact path="/Bookings" component={myBookings} />
           <Route exact path="/Book" component={Book} />
           <Route exact path="/Admin" component={Adminform} />
-          <Route exact path="/fileupload" component={FileUpload} />
+          <Route exact path="/Fileupload" component={FileUpload} />
+          <Route exact path="/Adminlogin" component={AdminLogin} />
         </Switch>
       </BrowserRouter>
     </div>

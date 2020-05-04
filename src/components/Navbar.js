@@ -17,6 +17,9 @@ const Navbar = () => {
             <Link to="/Admin">Admin</Link>
           </li>
           <li>
+            <Link to="/Adminlogin">Adminlogin</Link>
+          </li>
+          <li>
             <Link to="/Bookings">Mina bokningar</Link>
           </li>
           <li>

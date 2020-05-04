@@ -2,21 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class Adminform extends Component {
-  state = {
-    title: "",
-  };
 
   async onSubmitToApi(e) {
     e.preventDefault();
-
-
-    /* --- Lägga till fil --- */
-    const data = new FormData();
-    data.append("files", e.target.elements.file.files[0]);
-
-    const image = await axios.post("http://localhost:1337/upload", {
-      image: data,
-    });
 
 
     /* --- Lägga till resten av data --- */
@@ -30,7 +18,8 @@ class Adminform extends Component {
     });
 
     console.log(res);
-    console.log(image);
+    
+
   }
 
   render() {
@@ -42,7 +31,6 @@ class Adminform extends Component {
           <input type="number" name="price" placeholder="price" />
           <input type="file" name="file" />
           <button>Spara</button>
-          {this.state.title}
         </form>
       </div>
     );
