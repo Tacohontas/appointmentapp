@@ -8,19 +8,23 @@ class FileUpload extends Component {
   };
 
   eventChange(e) {
-    console.log(e.target.files[0]);
     this.setState({ image: e.target.files[0] });
   }
 
   async onSubmitToApi(e) {
     e.preventDefault();
 
+
+        /* --- Lägga till fil --- */
+
     const data = new FormData();
-    data.append("files", this.state.image);
+    data.append("files", e.target.elements.files.files[0]);
 
     const res = await axios.post("http://localhost:1337/upload/", data);
 
-    console.log(res);
+console.log(res);
+
+
   }
 
   render() {
