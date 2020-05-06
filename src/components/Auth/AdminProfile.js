@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-import CardPreview from "../Card_preview";
-import Adminform from "../Upload";
+
+import AdminForm from "../Upload";
 import EditProducts from "../../pages/EditProducts";
 
 // När admin är inloggad kommer hen hit
@@ -37,7 +36,7 @@ class AdminProfile extends Component {
         {this.state.view === "edit" && <EditProducts /> // Om view = edit
         }
 
-        {this.state.view === "create" && <Adminform /> // Om view = edit
+        {this.state.view === "create" && <AdminForm /> // Om view = edit
         }
 
         {console.log(this.state.view)}

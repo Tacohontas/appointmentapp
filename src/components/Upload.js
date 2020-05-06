@@ -25,7 +25,6 @@ class Upload extends Component {
     data.append("refId", res.data.id); // Hämtat post-id från vår post vi skapade.
     data.append("field", "image"); // Refererar till column i vår table
 
-    // const resPic = await axios.post("http://localhost:1337/upload", data);
    
 
     axios

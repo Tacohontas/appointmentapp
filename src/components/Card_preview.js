@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const CardPreview = (props) => {
   return (
@@ -7,9 +6,7 @@ const CardPreview = (props) => {
       <div className={"card__body"}>
         <h3 className={"card__title"}>{props.title}</h3>
         <p className={"card__price"}>{props.price}kr</p>
-        <Link to={props.link} className={props.btnStyle}>
-          {props.label}
-        </Link>
+        <button className={props.btnStyle}>{props.label}</button>
       </div>
     </div>
   );

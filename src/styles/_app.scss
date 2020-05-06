@@ -29,7 +29,7 @@ a {
   color: white;
 }
 
-.button{
+.button {
   font-family: lunchtype24expanded_regular;
   font-size: 1rem;
   text-align: center;
@@ -42,16 +42,20 @@ a {
   box-shadow: 1px 1px 4px -2px #253866;
 }
 
-.button__success{
-    @extend .button;
-    background: #709e4a;
+.button__success {
+  @extend .button;
+  background: #709e4a;
 }
 
-.button__secondary{
+.button__secondary {
   @extend .button;
   background-color: #51639a;
 }
 
+.button__warning {
+  @extend .button;
+  background-color: #b83535;
+}
 
 @import "_navbar";
 @import "_main";
