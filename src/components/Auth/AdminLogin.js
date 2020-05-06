@@ -11,7 +11,7 @@ class AdminLogin extends Component {
   onClickNav(e) {
     if (this.state.condition !== false) {
       this.setState({ condition: false });
-      e.target.innerHTML = "Already have an account!";
+      e.target.innerHTML = "Already have an account?";
     } else {
       this.setState({ condition: true });
       e.target.innerHTML = "Dont have an account?";
@@ -30,7 +30,8 @@ class AdminLogin extends Component {
         console.log("Well done");
         console.log("User profile", response.data.user);
         console.log("User token", response.data.jwt);
-        this.props.userCredential(response.data.user);
+        localStorage.setItem("userFromLogin", response.data.jwt); // Tillfällig lösning med LS
+        this.props.userCredential(response.data.jwt);
 
       })
       .catch((error) => {
@@ -50,7 +51,8 @@ class AdminLogin extends Component {
         console.log("Well done");
         console.log("User profile", response.data.user);
         console.log("User token", response.data.jwt);
-        // this.props.userInfo(response.data.jwt);
+        localStorage.setItem("jwtFromLogin", response.data.jwt); // Tillfällig lösning med LS
+
         this.props.userCredential(response.data.user);
       })
       .catch((error) => {
@@ -62,27 +64,28 @@ class AdminLogin extends Component {
     return (
       <div>
         {this.state.condition && ( // Om state.condition == true
-          <form onSubmit={this.onSubmitLogin.bind(this)}>
-            <input type="email" name="email" placeholder="email" />
+          <form className={"input_container"} onSubmit={this.onSubmitLogin.bind(this)}>
+            
+            <input type="email" name="email" placeholder="Email" />
             <input type="password" name="password" placeholder="Password" />
-            <button>Login</button>
+            <button className={"button__success"}>Login</button>
           </form>
         )}
 
         {!this.state.condition && ( // Om state.condition == false
           <form onSubmit={this.onSubmitRegister.bind(this)}>
-            <input type="text" name="username" placeholder="username" />
-            <input type="email" name="email" placeholder="register email" />
+            <input type="text" name="username" placeholder="Username" />
+            <input type="email" name="email" placeholder="Email" />
             <input
               type="password"
               name="password"
-              placeholder="register Password"
+              placeholder="Password"
             />
-            <button>Register</button>
+            <button className={"button__success"}>Register</button>
           </form>
         )}
 
-        <button onClick={this.onClickNav.bind(this)}>
+        <button className={"button__secondary"}onClick={this.onClickNav.bind(this)}>
           Dont have an account?
         </button>
       </div>

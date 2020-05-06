@@ -2,20 +2,27 @@ import React, { Component } from "react";
 import AdminLogin from "../components/Auth/AdminLogin";
 import AdminProfile from "../components/Auth/AdminProfile";
 
-// Renderar adminlogin eller adminprofile
+// Renderar adminlogin eller adminprofile baserat på state
 
 class AdminZone extends Component {
   state = {
-    user: true,
+    user: null,
   };
+
+  componentDidMount() {
+    let userFromLS = localStorage.getItem('jwtFromLogin')
+    this.setState({user: userFromLS})
+    }
+  
 
   render() {
     return (
       <div>
-        visa admin login
-        <AdminLogin />
-        eller visa adminprofile
-        <AdminProfile userInfo={(e) => console.log(e)} />
+        {!this.state.user && ( // Om Admin ej är inloggad
+          <AdminLogin userCredential={(e) => this.setState({ user: e })} />
+        )}
+        {this.state.user &&  // Om Admin är inloggad
+        <AdminProfile userData={this.state.user} />}
       </div>
     );
   }

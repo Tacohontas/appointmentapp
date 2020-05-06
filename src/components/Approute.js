@@ -5,10 +5,9 @@ import myBookings from "../pages/myBookings";
 import App from "./App";
 import Navbar from "./Navbar";
 import Book from "../pages/Book";
-import UploadForm from "./Upload";
-// import AdminZone from "../pages/Adminzone";
+import AdminZone from "../pages/Adminzone";
 // import ParentComponent from "./test/ParentComponent";
-import Adminsida from "./test/Adminsida";
+// import Adminsida from "./test/Adminsida";
 
 const Approute = () => {
   return (
@@ -19,8 +18,7 @@ const Approute = () => {
           <Route exact path="/" component={App} />
           <Route exact path="/Bookings" component={myBookings} />
           <Route exact path="/Book" component={Book} />
-          <Route exact path="/Upload" component={UploadForm} />
-          <Route exact path="/Admin" component={Adminsida} />
+          <Route exact path="/Admin" component={AdminZone} />
         </Switch>
       </BrowserRouter>
     </div>

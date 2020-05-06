@@ -35,17 +35,10 @@
   font-family: lunchtype24expanded_light;
 }
 
-.card__button {
-  background: #709e4a;
-  font-family: lunchtype24expanded_regular;
-  font-size: 1rem;
-  text-align: center;
-  vertical-align: middle;
-  color: white;
-  text-transform: uppercase;
-  padding: 0.375rem 0.75rem;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  box-shadow: 1px 1px 4px -2px #253866;
-
+.card__preview{
+  @extend .card;
+  width: 15rem;
+  min-height: 100px;
 }
+
+

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Card from "../components/Card";
+import Card from "../components/Card_full";
 import axios from "axios";
 
 class Main extends Component {
@@ -16,7 +16,7 @@ class Main extends Component {
 
   render() {
     return (
-      <div className={"main"}>
+      <div className={"products"}>
         {this.state.products.map((product) => (
           <Card
             key={product.id}

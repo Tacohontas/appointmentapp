@@ -35,7 +35,7 @@ class Form extends Component {
           <input type={"number"} placeholder={"Telefonnummer"}></input>
         </div>
 
-        <Link to="/Bookings" className={"card__button"}>Bekräfta</Link>
+        <Link to="/Bookings" className={"button__success"}>Bekräfta</Link>
       </form>
     );
   }

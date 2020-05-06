@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-class Adminform extends Component {
+class Upload extends Component {
   state = {
     image: "",
+    status: null,
   };
 
   async onSubmitToApi(e) {
@@ -24,8 +25,24 @@ class Adminform extends Component {
     data.append("refId", res.data.id); // Hämtat post-id från vår post vi skapade.
     data.append("field", "image"); // Refererar till column i vår table
 
-    const resPic = await axios.post("http://localhost:1337/upload", data);
-    console.log(resPic);
+    // const resPic = await axios.post("http://localhost:1337/upload", data);
+   
+
+    axios
+      .post("http://localhost:1337/upload", data)
+      .then((response) => {
+        // Handle success
+        console.log("Well done");
+        console.log(response);
+        console.log(response.status);
+        this.setState({status: response.status})
+        console.log("from state:", this.state.status);
+        
+      })
+      .catch((error) => {
+        console.log("An error occurred", error);
+      });
+    
   }
 
   eventChange(e) {
@@ -35,20 +52,23 @@ class Adminform extends Component {
   render() {
     return (
       <div>
+        
         <form onSubmit={this.onSubmitToApi.bind(this)}>
-          <input type="text" name="title" placeholder="title" />
-          <input type="text" name="description" placeholder="description" />
-          <input type="number" name="price" placeholder="price" />
+          <input type="text" name="title" placeholder="Title" />
+          <input type="text" name="description" placeholder="Description" />
+          <input type="number" name="price" placeholder="Price" />
           <input
             type="file"
             name="file"
             onChange={this.eventChange.bind(this)}
           />
-          <button>Spara</button>
+          <button className={"button__success"}>Create product</button>
         </form>
+
+        {this.state.status === 200 && (<h3>Product uploaded!</h3>)}
       </div>
     );
   }
 }
 
-export default Adminform;
+export default Upload;
