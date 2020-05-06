@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import AdminLogin from "../components/Authentication/AdminLogin";
-import AdminProfile from "../components/Authentication/AdminProfile";
+import AdminLogin from "../components/Auth/AdminLogin";
+import AdminProfile from "../components/Auth/AdminProfile";
+
+// Renderar adminlogin eller adminprofile
 
 class AdminZone extends Component {
   state = {

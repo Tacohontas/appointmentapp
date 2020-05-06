@@ -6,7 +6,9 @@ import App from "./App";
 import Navbar from "./Navbar";
 import Book from "../pages/Book";
 import UploadForm from "./Upload";
-import AdminZone from "../pages/Adminzone";
+// import AdminZone from "../pages/Adminzone";
+// import ParentComponent from "./test/ParentComponent";
+import Adminsida from "./test/Adminsida";
 
 const Approute = () => {
   return (
@@ -18,7 +20,7 @@ const Approute = () => {
           <Route exact path="/Bookings" component={myBookings} />
           <Route exact path="/Book" component={Book} />
           <Route exact path="/Upload" component={UploadForm} />
-          <Route exact path="/Admin" component={AdminZone} />
+          <Route exact path="/Admin" component={Adminsida} />
         </Switch>
       </BrowserRouter>
     </div>

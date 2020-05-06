@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+// Register and login information
+
 class AdminLogin extends Component {
   state = {
     condition: true, // Defaultvärde true
@@ -28,6 +30,8 @@ class AdminLogin extends Component {
         console.log("Well done");
         console.log("User profile", response.data.user);
         console.log("User token", response.data.jwt);
+        this.props.userCredential(response.data.user);
+
       })
       .catch((error) => {
         console.log("An error occurred", error);
@@ -42,10 +46,12 @@ class AdminLogin extends Component {
         password: e.target.elements.password.value,
       })
       .then((response) => {
+        // Handle success
         console.log("Well done");
         console.log("User profile", response.data.user);
         console.log("User token", response.data.jwt);
-        this.props.userInfo(response.data.jwt);
+        // this.props.userInfo(response.data.jwt);
+        this.props.userCredential(response.data.user);
       })
       .catch((error) => {
         console.log("An error occurred", error);
