@@ -7,7 +7,6 @@ class Main extends Component {
     products: [],
   };
 
-
   async componentDidMount() {
     axios.get("http://localhost:1337/products").then((res) => {
       this.setState({ products: res.data });
