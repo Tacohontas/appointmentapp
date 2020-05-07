@@ -43,14 +43,20 @@ class EditProducts extends Component {
     this.setState({ chosenProduct: [] });
   }
 
-  onClickDelete() {
+  onClickDelete(e) {
+    const chosenProductId = e.target.getAttribute("data-key");
     // Authenticate then delete chosenProduct from state
-    // axios
-    //   .delete("http://localhost:1337/products/" + chosenProductId)
-    //   .then((res) => {
-    //     this.setState({ chosenProduct: res.data });
-    //     // console.log(res.data);
-    //   });
+    axios
+      .delete("http://localhost:1337/products/" + chosenProductId)
+      .then((response) => {
+        console.log("Well done");
+        console.log(response);
+        console.log(response.status);
+        this.setState({ chosenProduct: [] });
+      })
+      .catch((error) => {
+        console.log("An error occurred", error);
+      });
   }
 
   async onSubmitToApi(e) {
@@ -138,6 +144,7 @@ class EditProducts extends Component {
             <button
               className={"button__warning"}
               onClick={this.onClickDelete.bind(this)}
+              data-key={this.state.chosenProduct.id}
             >
               Delete
             </button>
