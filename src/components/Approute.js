@@ -9,12 +9,13 @@ import AdminZone from "../pages/Adminzone";
 
 class Approute extends Component {
   state = {
-    loggedInStatus: "NOT_LOGGED_IN",
+    loggedInStatus: null,
     user: null,
   };
 
   componentDidMount() {
     console.log("approute mounted");
+    this.setState({ loggedInStatus: localStorage.getItem("jwt") });
   }
 
   componentDidUpdate() {
@@ -24,12 +25,13 @@ class Approute extends Component {
   render() {
     return (
       <div>
-        <h1>from state:{this.state.loggedInStatus}</h1>
+        {/* <h1>from state:{this.state.loggedInStatus}</h1> */}
         <BrowserRouter>
           <Navbar
             loggedInStatus={this.state.loggedInStatus}
+
+            // Sätter loggedInStatus till state.loggedInStatus
             handleCallback={(status) => {
-              // Sätter loggedInStatus till state.loggedInStatus
               this.setState({ loggedInStatus: status });
             }}
           />
@@ -44,7 +46,7 @@ class Approute extends Component {
                 <AdminZone
                   {...props}
                   loggedInStatus={(status) => {
-                    // Sätter loggedInStatus till state.loggedInStatus
+                    // Hämtar loggedInStatus (som är jwt) från adminlogin till state.loggedInStatus
                     this.setState({ loggedInStatus: status });
                   }}
                 />

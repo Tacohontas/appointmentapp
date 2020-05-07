@@ -2,54 +2,48 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../styles/_app.scss";
 
+// Vi får loggedInStatus prop från Approute.
+// prop = null om user ej är inloggad
+// prop = jwt om user är inloggad
+
 class Navbar extends Component {
   state = {
-    status: null,
+    // status: null,
   };
-
-  componentDidMount() {
-    console.log("navbar mount");
-    this.setState({status:this.props.loggedInStatus});
-  }
-
-  componentDidUpdate() {
-    console.log("navbar update");
-    
-  }
 
   onClickLogOut() {
     localStorage.clear();
-    this.setState({ status: "NOT_LOGGED_IN"});
-    this.props.handleCallback("NOT_LOGGED_IN");
+    this.props.handleCallback(null);
   }
 
   render() {
     return (
       <div className="navbar">
-        <h5>state from navbar:{this.state.status}</h5>
         <div className="navbar_left">
           <Link to="/">
-            <h2 className="navbar_logo">
-              Herrängens Tennisklubb
-            </h2>
+            <h2 className="navbar_logo">Herrängens Tennisklubb</h2>
           </Link>
         </div>
         <div className="navbar_right">
           <ul>
-
+            <li>{this.state.status}</li>
             <li>
               <Link to="/Bookings">Mina bokningar</Link>
             </li>
 
-            <li>{this.props.loggedInStatus !== "LOGGED_IN" && <Link to="/Admin">Admin (not logged in)</Link>}</li>
-
             <li>
-              {this.props.loggedInStatus === "LOGGED_IN" && (
-                <Link onClick={this.onClickLogOut.bind(this)} to="/">
-                  Logga ut (logged in)
-                </Link>
+              {this.props.loggedInStatus === null && (
+                <Link to="/Admin">Logga in</Link>
               )}
             </li>
+
+            {!!this.props.loggedInStatus && (
+              <li>
+                <Link onClick={this.onClickLogOut.bind(this)} to="/">
+                  Logga ut
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
