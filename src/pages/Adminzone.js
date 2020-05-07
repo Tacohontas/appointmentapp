@@ -6,23 +6,34 @@ import AdminProfile from "../components/Auth/AdminProfile";
 
 class AdminZone extends Component {
   state = {
-    user: null,
+    user: null || localStorage.getItem("jwt"),
+    jwt: null || localStorage.getItem("user"),
   };
 
-  componentDidMount() {
-    let userFromLS = localStorage.getItem('jwtFromLogin')
-    this.setState({user: userFromLS})
-    }
-  
+//   componentDidUpdate(){
+//     window.location.reload(false);
+    
+//   }
 
   render() {
+    const loggedIN = this.state.user || this.state.jwt;
     return (
       <div>
-        {!this.state.user && ( // Om Admin ej är inloggad
-          <AdminLogin userCredential={(e) => this.setState({ user: e })} />
+        {!loggedIN ? ( // Om Admin ej är inloggad
+          <AdminLogin
+            userCredential={(e, jwt) => {
+              // Sätter userinfo till state.user och jwt till state.jwt
+              this.setState({ user: e, jwt: jwt });
+              // Sätter state.jwt till localStorage(jwt)
+              localStorage.setItem("jwt", this.state.jwt);
+              // Sätter state.user till localStorage(user)
+              localStorage.setItem("user", this.state.user);
+            }}
+          />
+        ) : (
+          // Om Admin är inloggad
+          <AdminProfile userData={this.state.user} />
         )}
-        {this.state.user &&  // Om Admin är inloggad
-        <AdminProfile userData={this.state.user} />}
       </div>
     );
   }

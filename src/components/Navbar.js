@@ -4,11 +4,16 @@ import "../styles/_app.scss";
 
 class Navbar extends Component {
   state = {
-    loggedIn: false,
+    loggedIn: null,
   };
 
+  componentDidMount() {
+    this.setState({ loggedIn: !!localStorage.getItem("user") });
+  }
+
   onClickLogOut() {
-    localStorage.clear()
+    localStorage.clear();
+    this.setState({ loggedIn: false });
   }
 
   render() {
@@ -29,9 +34,11 @@ class Navbar extends Component {
             </li>
 
             <li>
-              <Link onClick={this.onClickLogOut.bind(this)} to="/">
-                Logga ut
-              </Link>
+              {this.state.loggedIn && (
+                <Link onClick={this.onClickLogOut.bind(this)} to="/">
+                  Logga ut
+                </Link>
+              )}
             </li>
           </ul>
         </div>

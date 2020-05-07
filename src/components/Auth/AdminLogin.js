@@ -30,8 +30,8 @@ class AdminLogin extends Component {
         console.log("Well done");
         console.log("User profile", response.data.user);
         console.log("User token", response.data.jwt);
-        localStorage.setItem("userFromLogin", response.data.jwt); // Tillfällig lösning med LS
-        this.props.userCredential(response.data.jwt);
+        // localStorage.setItem("userFromLogin", response.data.jwt); // Tillfällig lösning med LS
+        this.props.userCredential(response.data.user, response.data.jwt);
 
       })
       .catch((error) => {
@@ -51,9 +51,9 @@ class AdminLogin extends Component {
         console.log("Well done");
         console.log("User profile", response.data.user);
         console.log("User token", response.data.jwt);
-        localStorage.setItem("jwtFromLogin", response.data.jwt); // Tillfällig lösning med LS
+        // localStorage.setItem("jwtFromLogin", response.data.jwt); // Tillfällig lösning med LS
 
-        this.props.userCredential(response.data.user);
+        this.props.userCredential(response.data.user, response.data.jwt);
       })
       .catch((error) => {
         console.log("An error occurred", error);
