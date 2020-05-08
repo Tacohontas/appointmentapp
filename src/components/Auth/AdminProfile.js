@@ -8,7 +8,9 @@ import EditProducts from "../../pages/EditProducts";
 class AdminProfile extends Component {
   state = {
     products: [],
-    view: null,
+    view: "default",
+    status: null,
+    msg:"",
   };
 
   onClickChangeState(e) {
@@ -18,28 +20,46 @@ class AdminProfile extends Component {
   render() {
     return (
       <div className={"adminprofile_body"}>
-        <button
-          className={"button__secondary"}
-          onClick={this.onClickChangeState.bind(this)}
-          data-type="edit"
-        >
-          Redigera produkter
-        </button>
-        <button
-          className={"button__secondary"}
-          onClick={this.onClickChangeState.bind(this)}
-          data-type="create"
-        >
-          Skapa produkt
-        </button>
+        <div className={"adminprofile__left"}>
+          <button
+            className={"button__secondary"}
+            onClick={this.onClickChangeState.bind(this)}
+            data-type="edit"
+          >
+            Redigera produkter
+          </button>
+          <button
+            className={"button__secondary"}
+            onClick={this.onClickChangeState.bind(this)}
+            data-type="create"
+          >
+            Skapa produkt
+          </button>
+        </div>
 
-        {this.state.view === "edit" && <EditProducts /> // Om view = edit
-        }
+        <div className={"adminprofile__right"}>
+          {this.state.view === "default" && ( // Om view = landing (default)
+            <div className={"welcomeBox"}>
+              <h1>Välkommen till adminsidan!</h1>
+              <br />
+    {this.state.status === 200 && <h1>{this.state.msg}</h1>}
+            </div>
+          )}
 
-        {this.state.view === "create" && <AdminForm /> // Om view = edit
-        }
+          {
+            this.state.view === "edit" && (
+              <EditProducts
+                dataFromEditProducts={(viewCallback, statusCallback, msgCallback) => {
+                  this.setState({ view: viewCallback, status: statusCallback, msg: msgCallback });
+                }}
+              />
+            ) // Om view = edit
+          }
 
-        {console.log(this.state.view)}
+          {
+            this.state.view === "create" && <AdminForm /> // Om view = create
+          }
+        </div>
       </div>
     );
   }

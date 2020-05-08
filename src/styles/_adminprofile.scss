@@ -1,6 +1,22 @@
 .adminprofile_body {
   display: grid;
-  gap: 1rem;
+  // gap: 1rem;
+  grid-template-columns: 20% 80%;
+
+}
+
+.adminprofile__left{
+  button{
+    margin-bottom: 1rem;
+  }
+
+}
+
+.welcomeBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .products_preview {
@@ -15,4 +31,11 @@
   position: absolute;
   width: 1px;
   height: 1px;
+}
+
+.chosenproduct{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
 }

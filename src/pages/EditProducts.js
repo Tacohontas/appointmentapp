@@ -43,7 +43,6 @@ class EditProducts extends Component {
       .get("http://localhost:1337/products/" + chosenProductId)
       .then((res) => {
         this.setState({ chosenProduct: res.data });
-
       });
   }
 
@@ -53,13 +52,21 @@ class EditProducts extends Component {
 
   onClickDelete(e) {
     const chosenProductId = e.target.getAttribute("data-key");
-    axios
-      .delete("http://localhost:1337/products/" + chosenProductId)
+    axios({
+      method: "delete",
+      url: `http://localhost:1337/products/${chosenProductId}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    })
       .then((response) => {
         console.log("Well done");
         console.log(response);
         console.log(response.status);
-        this.setState({ chosenProduct: [] });
+        // this.setState({ chosenProduct: [] });
+        if (response.status === 200) {
+          this.props.dataFromEditProducts("default", response.status, "Produkt borttagen"); // Skicka tillbaks användare till admin-landing
+        }
       })
       .catch((error) => {
         console.log("An error occurred", error);
@@ -128,7 +135,10 @@ class EditProducts extends Component {
         console.log("Post created, Well done");
         console.log(response);
         console.log(response.status);
-        this.setState({ status: response.status });
+        // this.setState({ status: response.status });
+        if (response.status === 200) {
+          this.props.dataFromEditProducts("default", response.status, "Produkt ändrad"); // Skicka tillbaks användare till admin-landing
+        }
       })
       .catch((error) => {
         console.log("An error occurred", error);
@@ -162,7 +172,7 @@ class EditProducts extends Component {
 
         {/* Chosen product */}
         {Object.keys(this.state.chosenProduct).length > 0 && (
-          <div>
+          <div className={"chosenproduct"}>
             <h1>Vald produkt</h1>
             <form onSubmit={this.onSubmitToApi.bind(this)}>
               <img

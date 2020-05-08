@@ -3,9 +3,11 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import myBookings from "../pages/myBookings";
 import App from "./App";
+import AdminForm from "./Upload";
 import Navbar from "./Navbar";
 import Book from "../pages/Book";
 import AdminZone from "../pages/Adminzone";
+import EditProducts from "../pages/EditProducts";
 
 class Approute extends Component {
   state = {
@@ -29,7 +31,6 @@ class Approute extends Component {
         <BrowserRouter>
           <Navbar
             loggedInStatus={this.state.loggedInStatus}
-
             // Sätter loggedInStatus till state.loggedInStatus
             handleCallback={(status) => {
               this.setState({ loggedInStatus: status });
@@ -52,6 +53,8 @@ class Approute extends Component {
                 />
               )}
             />
+            <Route exact path="/Products" component={EditProducts} />
+            <Route exact path="/Create" component={AdminForm} />
           </Switch>
         </BrowserRouter>
       </div>

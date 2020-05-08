@@ -88,7 +88,7 @@ class Upload extends Component {
           <button className={"button__success"}>Skapa produkt</button>
         </form>
 
-        {this.state.status === 200 && <h3>Product uploaded!</h3>}
+        {this.state.status === 200 && <h3>Produkt skapad!</h3>}
       </div>
     );
   }
