@@ -14,7 +14,6 @@ class AdminZone extends Component {
     const loggedIN = this.state.user || this.state.jwt;
     return (
       <div>
-        <h1>Status: {this.props.loggedInStatus}</h1>
         {!loggedIN ? ( // Om Admin ej är inloggad
           <AdminLogin
             userCredential={(e, jwt) => {

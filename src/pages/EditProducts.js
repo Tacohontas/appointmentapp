@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import CardPreview from "../components/Card_preview";
 
 class EditProducts extends Component {
   state = {
     products: [],
     chosenProduct: [],
     status: null,
+    image: "",
   };
 
   async componentDidMount() {
     axios.get("http://localhost:1337/products").then((res) => {
       this.setState({ products: res.data });
-      console.log(Object.keys(this.state.chosenProduct).length);
     });
   }
   componentDidUpdate() {
@@ -29,13 +28,22 @@ class EditProducts extends Component {
     }
   }
 
+  onImgUploadChange(e) {
+    // Put image in state
+    this.setState({ image: e.target.files[0] });
+
+    // Preview image
+    let previewOutput = document.querySelector(".card_img-top");
+    previewOutput.src = URL.createObjectURL(e.target.files[0]);
+  }
+
   onClickChosenProduct(e) {
     let chosenProductId = e.target.getAttribute("data-key");
     axios
       .get("http://localhost:1337/products/" + chosenProductId)
       .then((res) => {
         this.setState({ chosenProduct: res.data });
-        // console.log(res.data);
+
       });
   }
 
@@ -45,7 +53,6 @@ class EditProducts extends Component {
 
   onClickDelete(e) {
     const chosenProductId = e.target.getAttribute("data-key");
-    // Authenticate then delete chosenProduct from state
     axios
       .delete("http://localhost:1337/products/" + chosenProductId)
       .then((response) => {
@@ -59,18 +66,66 @@ class EditProducts extends Component {
       });
   }
 
+  onClickEnableUpload() {
+    const fileInput = document.querySelector("#img__upload");
+    fileInput.disabled = false;
+  }
+
   async onSubmitToApi(e) {
     e.preventDefault();
+    console.log(localStorage.getItem("jwt"));
 
-    axios
-      .put("http://localhost:1337/products/" + e.target.elements.id.value, {
+    const fileInput = document.querySelector("#img__upload");
+
+    // console.log(e.target.elements.id.value);
+
+    if (!fileInput.disabled) {
+      // fileInput is disabled if we don't want to update image.
+      // Upload image
+      console.log("input isnt disabled");
+
+      const formData = new FormData();
+      formData.append("files", this.state.image);
+      formData.append("ref", "product"); // Refererar till table
+      formData.append("refId", e.target.elements.id.value); // Hämtat post-id från vår post vi skapade.
+      formData.append("field", "image"); // Refererar till column i vår table
+
+      axios({
+        method: "post",
+        url: `http://localhost:1337/upload`,
+        data: formData,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      })
+        .then((response) => {
+          // Handle success
+          console.log("Picture uploaded to post, Well done");
+          console.log(response);
+          console.log(response.status);
+          this.setState({ status: response.status });
+          console.log("from state:", this.state.status);
+        })
+        .catch((error) => {
+          console.log("An error occurred", error);
+        });
+    }
+
+    axios({
+      method: "put",
+      url: `http://localhost:1337/products/${e.target.elements.id.value}`,
+      data: {
         title: e.target.elements.title.value,
         description: e.target.elements.description.value,
         price: e.target.elements.price.value,
-      })
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    })
       .then((response) => {
         // Handle success
-        console.log("Well done");
+        console.log("Post created, Well done");
         console.log(response);
         console.log(response.status);
         this.setState({ status: response.status });
@@ -84,6 +139,7 @@ class EditProducts extends Component {
   render() {
     return (
       <div>
+        {/* Products */}
         {Object.keys(this.state.chosenProduct).length === 0 && (
           <div className={"products_preview"}>
             {this.state.products.map((product) => (
@@ -104,9 +160,10 @@ class EditProducts extends Component {
           </div>
         )}
 
+        {/* Chosen product */}
         {Object.keys(this.state.chosenProduct).length > 0 && (
           <div>
-            <h1>Chosen product</h1>
+            <h1>Vald produkt</h1>
             <form onSubmit={this.onSubmitToApi.bind(this)}>
               <img
                 src={
@@ -114,6 +171,20 @@ class EditProducts extends Component {
                 }
                 className={"card_img-top"}
                 alt={"People"}
+              />
+              <label
+                htmlFor={"img__upload"}
+                className={"button__secondary"}
+                onClick={this.onClickEnableUpload.bind(this)}
+              >
+                Ändra bild
+              </label>
+              <input
+                id={"img__upload"}
+                type="file"
+                name="file"
+                onChange={this.onImgUploadChange.bind(this)}
+                disabled
               />
               <input
                 type="hidden"

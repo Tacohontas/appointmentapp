@@ -26,7 +26,6 @@ class Navbar extends Component {
         </div>
         <div className="navbar_right">
           <ul>
-            <li>{this.state.status}</li>
             <li>
               <Link to="/Bookings">Mina bokningar</Link>
             </li>
@@ -39,10 +38,20 @@ class Navbar extends Component {
 
             {!!this.props.loggedInStatus && (
               <li>
+                <Link to="/Admin">
+                  Adminpanel
+                </Link>
+              </li>
+              
+            )}
+
+            {!!this.props.loggedInStatus && (
+              <li>
                 <Link onClick={this.onClickLogOut.bind(this)} to="/">
                   Logga ut
                 </Link>
               </li>
+              
             )}
           </ul>
         </div>

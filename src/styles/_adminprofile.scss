@@ -8,3 +8,11 @@
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   gap: 0.25rem;
 }
+
+#img__upload {
+  // This element is hidden in viewport
+  visibility: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+}
