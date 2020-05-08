@@ -26,7 +26,7 @@ class AdminProfile extends Component {
             onClick={this.onClickChangeState.bind(this)}
             data-type="edit"
           >
-            Redigera produkter
+            Visa produkter
           </button>
           <button
             className={"button__secondary"}
