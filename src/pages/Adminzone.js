@@ -16,9 +16,9 @@ class AdminZone extends Component {
       <div>
         {!loggedIN ? ( // Om Admin ej är inloggad
           <AdminLogin
-            userCredential={(e, jwt) => {
+            userCredential={(user, jwt) => {
               // Sätter userinfo till state.user och jwt till state.jwt
-              this.setState({ user: e, jwt: jwt });
+              this.setState({ user: user, jwt: jwt });
               // Sätter state.jwt till localStorage(jwt)
               localStorage.setItem("jwt", this.state.jwt);
               // Sätter state.user till localStorage(user)
