@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import Book from "../pages/Book";
 import AdminZone from "../pages/Adminzone";
 import EditProducts from "../pages/EditProducts";
+import FirebaseTest from "./Firebasetest";
 
 class Approute extends Component {
   state = {
@@ -53,6 +54,7 @@ class Approute extends Component {
                 />
               )}
             />
+            <Route exact path="/firebasetest" component={FirebaseTest} />
             <Route exact path="/Products" component={EditProducts} />
             <Route exact path="/Create" component={AdminForm} />
           </Switch>
