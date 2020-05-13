@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Card from "../components/Card_full";
+import Card from "../components/Card_firebase";
 import axios from "axios";
 
 class Main extends Component {
@@ -19,6 +19,7 @@ class Main extends Component {
         {this.state.products.map((product) => (
           <Card
             key={product.id}
+            docId={product.id}
             title={product.title}
             desc={product.description}
             price={product.price}

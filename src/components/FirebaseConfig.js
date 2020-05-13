@@ -14,7 +14,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-// firebase.firestore().settings({ timestampsInSnapshots: true });
 
 export const googleProvier = new firebase.auth.GoogleAuthProvider();
 

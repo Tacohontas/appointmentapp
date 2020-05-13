@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = (props) => {
+const Card_old = (props) => {
   return (
     <div className={"card"}>
       <img src={props.image} className={"card_img-top"} alt={"People"} />
@@ -17,4 +17,4 @@ const Card = (props) => {
   );
 };
 
-export default Card;
+export default Card_old;
