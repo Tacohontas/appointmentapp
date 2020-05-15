@@ -23,10 +23,15 @@ class UserLogin extends Component {
     e.preventDefault();
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
+    const displayName = e.target.elements.username.value;
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((res) => this.props.userCredential(res.user.email));
+      .then((res) => {
+        res.user.sendEmailVerification();
+        this.props.userCredential(res.user.email);
+        this.props.showDisplayName(displayName);
+      });
   }
 
   onSubmitLogin(e) {
@@ -39,18 +44,39 @@ class UserLogin extends Component {
       .then((res) => this.props.userCredential(res.user.email));
   }
 
+  resetPassword(e) {
+    e.preventDefault();
+    var auth = firebase.auth();
+    var emailAddress = e.target.elements.resetEmail.value;
+    
+    auth
+      .sendPasswordResetEmail(emailAddress)
+      .then(function () {
+        // Email sent.
+      })
+      .catch(function (error) {
+        // An error happened.
+      });
+  }
+
   render() {
     return (
       <div>
         {this.state.condition && ( // Om state.condition == true
-          <form
-            className={"input_container"}
-            onSubmit={this.onSubmitLogin.bind(this)}
-          >
-            <input type="email" name="email" placeholder="Email" />
-            <input type="password" name="password" placeholder="Password" />
-            <button className={"button__success"}>Login</button>
-          </form>
+          <div>
+            <form
+              onSubmit={this.resetPassword.bind(this)}
+              className={"input_container"}
+            >
+              <input type="email" name="email" placeholder="Email" />
+              <input type="password" name="password" placeholder="Password" />
+              <button className={"button__success"}>Login</button>
+            </form>
+            <form onSubmit={this.onSubmitLogin.bind(this)}>
+              <input type="email" name="resetEmail"></input>
+              <button>Reset password</button>
+            </form>
+          </div>
         )}
 
         {!this.state.condition && ( // Om state.condition == false
