@@ -29,6 +29,9 @@ class Navbar extends Component {
             <li>
               <Link to="/Bookings">Mina bokningar</Link>
             </li>
+            <li>
+              <Link to="/Contact">Kontakt</Link>
+            </li>
 
             <li>
               {this.props.loggedInStatus === null && (

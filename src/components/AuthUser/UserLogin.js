@@ -1,13 +1,36 @@
 import React, { Component } from "react";
 import firebase from "../FirebaseConfig";
-import axios from "axios";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import UserProfile from "./UserProfile";
 
 // Register and login information
 
 class UserLogin extends Component {
   state = {
     condition: true, // Defaultvärde true
+    user: "",
   };
+
+  // Configure FirebaseUI.
+  uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: "popup",
+    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+    signInSuccessUrl: "/userprofile",
+    // We will display Google and Facebook as auth providers.
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    ],
+  };
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.setState({user: user.email}); // ES6 shortcut: ({ user: user }) = ({user})
+      console.log(user);
+    });
+    // Skicka data till parent
+  }
 
   onClickNav(e) {
     if (this.state.condition !== false) {
@@ -26,11 +49,11 @@ class UserLogin extends Component {
     const displayName = e.target.elements.username.value;
     firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(email, password) // Skapar användare i firebase med email, pw
       .then((res) => {
-        res.user.sendEmailVerification();
-        this.props.userCredential(res.user.email);
-        this.props.showDisplayName(displayName);
+        res.user.sendEmailVerification(); // Skickar en email-verifikation.
+        this.props.userCredential(res.user.email); // Skickar tillbaka användarens mail i vår callbackprops
+        this.props.showDisplayName(displayName); // Skickar tillbaka användarens displaynem i vår callbackprops
       });
   }
 
@@ -40,22 +63,35 @@ class UserLogin extends Component {
     const password = e.target.elements.password.value;
     firebase
       .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((res) => this.props.userCredential(res.user.email));
+      .signInWithEmailAndPassword(email, password) // Skickar en email-verifikation.
+      .then((res) => this.props.userCredential(res.user.email)); // Skickar tillbaka användarens mail i vår callbackprops.
   }
 
   resetPassword(e) {
     e.preventDefault();
     var auth = firebase.auth();
     var emailAddress = e.target.elements.resetEmail.value;
-    
+
     auth
-      .sendPasswordResetEmail(emailAddress)
+      .sendPasswordResetEmail(emailAddress) // Skickar ett reset pw-mail till adress i input:mail
       .then(function () {
         // Email sent.
       })
       .catch(function (error) {
         // An error happened.
+      });
+  }
+
+  deleteAccount() {
+    const userFromLocal = localStorage.getItem("user");
+    var user = firebase.auth().currentUser;
+    user
+      .delete()
+      .then(function () {
+        //user deleted
+      })
+      .catch(function (error) {
+        // An error happend
       });
   }
 
@@ -80,12 +116,24 @@ class UserLogin extends Component {
         )}
 
         {!this.state.condition && ( // Om state.condition == false
-          <form onSubmit={this.onSubmitRegister.bind(this)}>
-            <input type="text" name="username" placeholder="Username" />
-            <input type="email" name="email" placeholder="Email" />
-            <input type="password" name="password" placeholder="Password" />
-            <button className={"button__success"}>Register</button>
-          </form>
+          <div>
+            <form onSubmit={this.onSubmitRegister.bind(this)}>
+              <input type="text" name="username" placeholder="Username" />
+              <input type="email" name="email" placeholder="Email" />
+              <input type="password" name="password" placeholder="Password" />
+              <button className={"button__success"}>Register</button>
+            </form>
+            <div>or</div>
+            <div>
+              <h1>My App</h1>
+              <p>Please sign-in:</p>
+              <StyledFirebaseAuth
+                uiConfig={this.uiConfig}
+                firebaseAuth={firebase.auth()}
+              />
+            </div>
+            {this.state.user ? <UserProfile userData={this.state.user} /> : <div>else</div>}
+          </div>
         )}
 
         <button
