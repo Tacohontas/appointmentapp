@@ -8,37 +8,23 @@ class UserPage extends Component {
     user: null || localStorage.getItem("user"),
     displayName: "",
   };
-  callback;
+
+  componentDidMount() {
+    firebase
+      .auth()
+      .onAuthStateChanged((user) => // onAuthStateChanged anropas när man loggar in / ut
+        this.setState({ user: user.email, displayName: user.displayName })
+      );
+  }
 
   render() {
-    const loggedIn = this.state.user || localStorage.getItem("user");
+    const loggedIn = this.state.user;
     return (
       <div>
         {!loggedIn ? (
-          <UserLogin
-            userCredential={(user) => {
-              this.setState({ user: user });
-              localStorage.setItem("user", this.state.user);
-            }}
-            showDisplayName={(username) => {
-              firebase.auth().onAuthStateChanged((user) => {
-                // onAuthStateChanged anropas varje gång det sker en ändring med register.
-                user
-                  .updateProfile({
-                    // Uppdaterar profil med displayname. username är hämtad från props-callback
-                    displayName: username,
-                  })
-                  .then(() => {
-                    this.setState({
-                      // Sätter displayname i state.
-                      displayName: user.displayName,
-                    });
-                  });
-              });
-            }}
-          />
+          <UserLogin />
         ) : (
-          <UserProfile userData={this.state.user} />
+          <UserProfile userData={this.state.displayName || this.state.user} />
         )}
       </div>
     );

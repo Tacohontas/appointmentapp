@@ -11,12 +11,12 @@ export default class Contact extends Component {
     if (firebase.auth().currentUser.uid) {
       db.collection("contactFormData")
         .doc(firebase.auth().currentUser.uid.toString())
-        // .collection()
-        // .add({
-        //   name: e.target.elements.name.value,
-        //   email: e.target.elements.email.value,
-        //   message: e.target.elements.textarea.value,
-        // });
+        .collection("messages")
+        .add({
+          name: e.target.elements.name.value,
+          email: e.target.elements.email.value,
+          message: e.target.elements.textarea.value,
+        });
     } else {
       // medd: skapa ett konto
       console.log("ELSE");
