@@ -5,7 +5,7 @@ class UserProfile extends Component {
   logOut() {
     localStorage.clear();
     firebase.auth().signOut();
-    window.location.reload(false);    
+    window.location.reload(false);
   }
 
   deleteAccount() {
@@ -18,7 +18,7 @@ class UserProfile extends Component {
         window.location.reload(false);
       })
       .catch(function (error) {
-        // An error happend
+        console.log(error);
       });
   }
 

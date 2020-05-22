@@ -57,8 +57,10 @@ a {
   background-color: #b83535;
 }
 
-@import "_navbar";
-@import "_main";
-@import "_card";
-@import "_form";
-@import "_adminprofile";
+@import "navbar";
+@import "main";
+@import "card";
+@import "form";
+@import "adminprofile";
+@import "login";
+@import "register";

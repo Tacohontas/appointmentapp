@@ -13,6 +13,7 @@ import FirebaseTest from "./Firebasetest";
 import UserProfile from "./AuthUser/UserProfile";
 import UserPage from "./AuthUser/UserPage";
 import Contact from "./Contact";
+import ForgotPassword from "../pages/ForgotPassword";
 
 class Approute extends Component {
   state = {
@@ -59,9 +60,11 @@ class Approute extends Component {
             />
             <Route exact path="/Products" component={EditProducts} />
             <Route exact path="/Create" component={AdminForm} />
+            <Route exact path="/Contact" component={Contact} />
+            {/* User & Logins */}
+            <Route exact path="/forgotpassword" component={ForgotPassword}/>
             <Route exact path="/userpage" component={UserPage} />
             <Route exact path="/userprofile" component={UserProfile} />
-            <Route exact path="/Contact" component={Contact} />
             {/* Tester */}
             <Route exact path="/firebasetest" component={FirebaseTest} />
           </Switch>
