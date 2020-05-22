@@ -16,13 +16,13 @@ import Contact from "./Contact";
 
 class Approute extends Component {
   state = {
-    loggedInStatus: null,
+    adminLoginStatus: null,
     user: null,
   };
 
   componentDidMount() {
     console.log("approute mounted");
-    this.setState({ loggedInStatus: localStorage.getItem("jwt") });
+    this.setState({ adminLoginStatus: localStorage.getItem("jwt") });
   }
 
   componentDidUpdate() {
@@ -32,13 +32,12 @@ class Approute extends Component {
   render() {
     return (
       <div>
-        {/* <h1>from state:{this.state.loggedInStatus}</h1> */}
         <BrowserRouter>
           <Navbar
-            loggedInStatus={this.state.loggedInStatus}
-            // Sätter loggedInStatus till state.loggedInStatus
+            adminLoginStatus={this.state.adminLoginStatus}
+            // Sätter adminLoginStatus till state.adminLoginStatus
             handleCallback={(status) => {
-              this.setState({ loggedInStatus: status });
+              this.setState({ adminLoginStatus: status });
             }}
           />
           <Switch>
@@ -51,20 +50,20 @@ class Approute extends Component {
               render={(props) => (
                 <AdminZone
                   {...props}
-                  loggedInStatus={(status) => {
-                    // Hämtar loggedInStatus (som är jwt) från adminlogin till state.loggedInStatus
-                    this.setState({ loggedInStatus: status });
+                  adminLogInStatus={(status) => {
+                    // Hämtar adminLoginStatus (som är jwt) från adminlogin till state.adminLoginStatus
+                    this.setState({ adminLoginStatus: status });
                   }}
                 />
               )}
             />
             <Route exact path="/Products" component={EditProducts} />
             <Route exact path="/Create" component={AdminForm} />
-            {/* Tester */}
-            <Route exact path="/firebasetest" component={FirebaseTest} />
             <Route exact path="/userpage" component={UserPage} />
             <Route exact path="/userprofile" component={UserProfile} />
             <Route exact path="/Contact" component={Contact} />
+            {/* Tester */}
+            <Route exact path="/firebasetest" component={FirebaseTest} />
           </Switch>
         </BrowserRouter>
       </div>

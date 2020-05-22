@@ -25,7 +25,7 @@ class AdminZone extends Component {
               localStorage.setItem("user", this.state.user);
 
               // TEST - skicka tillbaka jwt som props till Approute 
-              this.props.loggedInStatus(localStorage.getItem("jwt"));
+              this.props.adminLoginStatus(localStorage.getItem("jwt"));
             }}
           />
         ) : (

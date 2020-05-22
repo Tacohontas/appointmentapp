@@ -4,12 +4,11 @@ import firebase from "../FirebaseConfig";
 class UserProfile extends Component {
   logOut() {
     localStorage.clear();
-    window.location.reload(false);
     firebase.auth().signOut();
+    window.location.reload(false);    
   }
 
   deleteAccount() {
-    const userFromLocal = localStorage.getItem("user");
     var user = firebase.auth().currentUser;
     user
       .delete()

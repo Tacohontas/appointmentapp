@@ -5,16 +5,17 @@ import firebase from "../FirebaseConfig";
 
 class UserPage extends Component {
   state = {
-    user: null || localStorage.getItem("user"),
+    user: false,
     displayName: "",
   };
 
   componentDidMount() {
-    firebase
-      .auth()
-      .onAuthStateChanged((user) => // onAuthStateChanged anropas när man loggar in / ut
-        this.setState({ user: user.email, displayName: user.displayName })
-      );
+    firebase.auth().onAuthStateChanged((user) => {
+      // onAuthStateChanged anropas när man loggar in / ut
+      if (user) {
+        this.setState({ user: user.email, displayName: user.displayName });
+      }
+    });
   }
 
   render() {

@@ -26,8 +26,9 @@ class UserLogin extends Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      this.setState({ user: user.email }); // ES6 shortcut: ({ user: user }) = ({user})
-      console.log(user);
+      if (user) {
+        this.setState({ user: user.email }); // ES6 shortcut: ({ user: user }) = ({user})
+      }
     });
   }
 
@@ -64,8 +65,6 @@ class UserLogin extends Component {
       });
   }
 
-
-
   resetPassword(e) {
     e.preventDefault();
     var auth = firebase.auth();
@@ -76,21 +75,18 @@ class UserLogin extends Component {
       .then(function () {
         // Email sent.
         console.log("Email sent");
-        
       })
       .catch(function (error) {
         // An error happened.
       });
   }
 
-
-
   render() {
     return (
       <div>
         {this.state.condition && ( // Om state.condition == true
           <div>
-            {/* Reset password */}
+            {/* Login */}
             <form
               onSubmit={this.onSubmitLogin.bind(this)}
               className={"input_container"}
@@ -100,7 +96,7 @@ class UserLogin extends Component {
               <button className={"button__success"}>Login</button>
             </form>
 
-            {/* Login */}
+            {/* Reset password */}
             <form onSubmit={this.resetPassword.bind(this)}>
               <input type="email" name="resetEmail"></input>
               <button>Reset password</button>
