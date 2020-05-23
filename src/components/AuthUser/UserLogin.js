@@ -44,6 +44,9 @@ class UserLogin extends Component {
       .createUserWithEmailAndPassword(email, password) // Skapar användare i firebase med email, pw
       .then((res) => {
         res.user.sendEmailVerification(); // Skickar en email-verifikation.
+        res.user.updateProfile({
+          displayName : displayName
+        })
         // this.props.userCredential(res.user.email); // Skickar tillbaka användarens mail i vår callbackprops
       });
   }

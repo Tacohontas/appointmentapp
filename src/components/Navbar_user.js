@@ -20,7 +20,7 @@ class NavbarUser extends Component {
       <div className="navbar_right">
         <ul>
           <li>
-            <Link to="/Bookings">Mina bokningar</Link>
+            <Link to="/Userpage">Min profil</Link>
           </li>
           <li>
             <Link to="/Contact">Kontakt</Link>

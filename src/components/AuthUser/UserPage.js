@@ -13,7 +13,7 @@ class UserPage extends Component {
     firebase.auth().onAuthStateChanged((user) => {
       // onAuthStateChanged anropas när man loggar in / ut
       if (user) {
-        this.setState({ user: user.email, displayName: user.displayName });
+        this.setState({ user: user.email, displayName: user.displayName });        
       }
     });
   }
@@ -25,7 +25,7 @@ class UserPage extends Component {
         {!loggedIn ? (
           <UserLogin />
         ) : (
-          <UserProfile userData={this.state.displayName || this.state.user} />
+          <UserProfile/>
         )}
       </div>
     );
