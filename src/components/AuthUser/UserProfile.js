@@ -12,6 +12,7 @@ class UserProfile extends Component {
     editInfo: false,
     errorMsg: null,
     imageToUpload: null,
+    msg: null,
   };
 
   componentDidMount() {
@@ -44,13 +45,13 @@ class UserProfile extends Component {
   }
 
   onClickEditUserInfo() {
-    this.setState({ editInfo: "USER_INFO" });
+    this.setState({ editInfo: "USER_INFO", msg: null });
   }
   onClickEditUserEmail() {
-    this.setState({ editInfo: "EMAIL" });
+    this.setState({ editInfo: "EMAIL", msg: null });
   }
   onClickEditUserPw() {
-    this.setState({ editInfo: "PASSWORD" });
+    this.setState({ editInfo: "PASSWORD", msg: null });
   }
 
   logOut() {
@@ -61,6 +62,10 @@ class UserProfile extends Component {
 
   deleteAccount() {
     var user = firebase.auth().currentUser;
+
+    // Use 'that' when you want to set state inside of a promise.
+    var that = this;
+
     user
       .delete()
       .then(function () {
@@ -69,6 +74,8 @@ class UserProfile extends Component {
         window.location.reload(false);
       })
       .catch(function (error) {
+        // use 'that' variable here
+        that.setState({ errorMessage: error.message });
         console.log(error);
       });
   }
@@ -78,6 +85,8 @@ class UserProfile extends Component {
     console.log("submit");
 
     console.log(e);
+    // Use 'that' when wanting to set state inside of promise.
+    var that = this;
 
     var user = firebase.auth().currentUser;
 
@@ -106,10 +115,13 @@ class UserProfile extends Component {
         .then(function () {
           // Update successful.
           console.log("displayname updated");
+          that.setState({msg: "Användarnamnet har uppdateras!"})
         })
         .catch(function (error) {
           // An error happened.
           console.log(error);
+          that.setState({msg: "Användarnamnet kunde ej uppdateras!"})
+
           // this.props.dataFromUserProfile(error.message);
         });
     }
@@ -131,15 +143,19 @@ class UserProfile extends Component {
             .updateEmail(emailInput)
             .then(function () {
               // Update successful.
+              that.setState({ msg: "Email uppdaterades!" });
               console.log("email updated");
             })
             .catch(function (error) {
               // An error happened.
+              that.setState({ msg: "Kunde inte byta mailadress." });
+
               console.log(error);
             });
         })
         .catch(function (error) {
           console.log(error);
+          that.setState({ msg: "Fel lösenord. Försök igen" });
         });
     }
 
@@ -155,8 +171,8 @@ class UserProfile extends Component {
         oldPassword
       );
 
-      if (newPassword.length > 0) {
-        if (newPassword.length > 6) {
+      if (newPassword.length > 0 && oldPassword > 0) {
+        if (newPassword.length > 5 && oldPassword > 5) {
           // Reauthenticate
           user
             .reauthenticateWithCredential(credentials)
@@ -167,16 +183,28 @@ class UserProfile extends Component {
                 .then(function () {
                   // Update successful.
                   console.log("password updated");
+                  that.setState({ msg: "Lösenord uppdaterades!" });
+
                 })
                 .catch(function (error) {
                   // An error happened.
+                  that.setState({ msg: "Lösenord kunde ej uppdateras!" });
+
                   console.log(error.message);
                 });
             })
             .catch(function (error) {
+              that.setState({ msg: "Fel lösenord. Försök igen!" });
+
               console.log(error);
             });
+        } else {
+          that.setState({ msg: "Lösenordet måste vara minst 6 tecken. Försök igen!" });
+
         }
+      } else {
+        that.setState({ msg: "Fälten får ej vara tomma. Försök igen!" });
+
       }
     }
   }
@@ -195,48 +223,11 @@ class UserProfile extends Component {
     previewOutput.src = URL.createObjectURL(e.target.files[0]);
   }
 
-  changePassword() {
-    var user = firebase.auth().currentUser;
-    var newPassword = document.querySelector('input[name="password"]');
-
-    if (newPassword.value.length > 0) {
-      if (newPassword.value.length > 6) {
-        user
-          .updatePassword(newPassword.value)
-          .then(function () {
-            // Update successful.
-            console.log("password updated");
-          })
-          .catch(function (error) {
-            // An error happened.
-            console.log(error.message);
-          });
-      }
-    }
-  }
-
-  changeEmail() {
-    var user = firebase.auth().currentUser;
-    let inputEmail = document.querySelector('input[name="email"]');
-
-    user
-      .updateEmail(inputEmail.value)
-      .then(function () {
-        // Update successful.
-        console.log("email updated");
-      })
-      .catch(function (error) {
-        // An error happened.
-        console.log(error);
-      });
-  }
-
   render() {
     return (
       <div className="userprofile">
-        {this.state.editInfo === false && (
+        {this.state.editInfo === false && ( // Default view
           <div className="userprofile__info">
-            <h1>{this.props.dataToUserProfile}</h1>
             {!!this.state.profilePicture ? (
               <img src={this.state.profilePicture} alt="profilbild" />
             ) : (
@@ -280,11 +271,15 @@ class UserProfile extends Component {
           </div>
         )}
 
-        {this.state.editInfo === "USER_INFO" && (
+        {this.state.editInfo === "USER_INFO" && ( // Changing user info
           <form
             className={"input_container"}
             onSubmit={this.onSubmitUpdateProfile.bind(this)}
           >
+            {
+              // Confirmation or error message here
+              this.state.msg
+            }
             <img
               src={this.state.profilePicture}
               className={"card_img-top"}
@@ -319,12 +314,15 @@ class UserProfile extends Component {
             <button className={"button__success"}>Spara</button>
           </form>
         )}
-
-        {this.state.editInfo === "EMAIL" && (
+        {this.state.editInfo === "EMAIL" && ( // Changing user email
           <form
             className={"input_container"}
             onSubmit={this.onSubmitUpdateProfile.bind(this)}
           >
+            {
+              // Confirmation or error message here
+              this.state.msg
+            }
             <input type="username" name="email" placeholder="Ny e-post" />
             <input
               type="password"
@@ -347,6 +345,10 @@ class UserProfile extends Component {
             className={"input_container"}
             onSubmit={this.onSubmitUpdateProfile.bind(this)}
           >
+            {
+              // Confirmation or error message here
+              this.state.msg
+            }
             <input
               type="password"
               name="new_password"

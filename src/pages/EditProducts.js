@@ -84,6 +84,9 @@ class EditProducts extends Component {
 
     const fileInput = document.querySelector("#img__upload");
 
+    // Use 'that' when wanting to set state inside of promise.
+    var that = this;
+
     // console.log(e.target.elements.id.value);
 
     if (!fileInput.disabled) {
