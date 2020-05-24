@@ -90,7 +90,7 @@ class UserProfile extends Component {
 
     var user = firebase.auth().currentUser;
 
-    if (this.state.editInfo === "USER_INFO") {
+    if (this.state.editInfo === "USER_INFO2") {
       const fileInput = document.querySelector("#img__upload");
 
       if (!fileInput.disabled) {
@@ -98,13 +98,20 @@ class UserProfile extends Component {
         // Upload image
         console.log("input isnt disabled");
 
-        const formData = new FormData();
-        formData.append("files", this.state.image);
-        formData.append("ref", "product"); // Refererar till table
-        formData.append("refId", e.target.elements.id.value); // Hämtat post-id från vår post vi skapade.
-        formData.append("field", "image"); // Refererar till column i vår table
+        // Create a root reference
+        var storageRef = firebase
+          .storage()
+          .ref(user + "/profilePicture/" + this.state.imageToUpload.name);
 
-        // upload here
+        storageRef
+          .put(this.state.imageToUpload)
+          .then(function (snapshot) {
+            console.log("Uploaded a blob or file!");
+          })
+          .catch(function (error) {
+            // An error happened.
+            console.log(error);
+          });
       }
 
       // UPDATE PHOTO ASWELL
@@ -115,15 +122,60 @@ class UserProfile extends Component {
         .then(function () {
           // Update successful.
           console.log("displayname updated");
-          that.setState({msg: "Användarnamnet har uppdateras!"})
+          that.setState({ msg: "Användarnamnet har uppdateras!" });
         })
         .catch(function (error) {
           // An error happened.
           console.log(error);
-          that.setState({msg: "Användarnamnet kunde ej uppdateras!"})
+          that.setState({ msg: "Användarnamnet kunde ej uppdateras!" });
 
           // this.props.dataFromUserProfile(error.message);
         });
+    }
+
+    if (this.state.editInfo === "USER_INFO") {
+      const photoUrlInput = document.querySelector('input[name="photoUrl"]')
+        .value;
+
+      if (photoUrlInput.length > 0) {
+        // fileInput is disabled if we don't want to update image.
+        //
+        user
+          .updateProfile({
+            photoURL: photoUrlInput,
+          })
+          .then(function () {
+            // Update successful.
+            console.log("photoURL updated");
+            that.setState({ msg: "Profilbilden har uppdateras!" });
+          })
+          .catch(function (error) {
+            // An error happened.
+            console.log(error);
+            that.setState({ msg: "Profilbilden kunde ej uppdateras!" });
+
+            // this.props.dataFromUserProfile(error.message);
+          });
+
+        // Create a root reference
+      }
+
+      // user
+      //   .updateProfile({
+      //     displayName: e.target.elements.username.value,
+      //   })
+      //   .then(function () {
+      //     // Update successful.
+      //     console.log("displayname updated");
+      //     that.setState({ msg: "Användarnamnet har uppdateras!" });
+      //   })
+      //   .catch(function (error) {
+      //     // An error happened.
+      //     console.log(error);
+      //     that.setState({ msg: "Användarnamnet kunde ej uppdateras!" });
+
+      //     // this.props.dataFromUserProfile(error.message);
+      //   });
     }
 
     if (this.state.editInfo === "EMAIL") {
@@ -184,7 +236,6 @@ class UserProfile extends Component {
                   // Update successful.
                   console.log("password updated");
                   that.setState({ msg: "Lösenord uppdaterades!" });
-
                 })
                 .catch(function (error) {
                   // An error happened.
@@ -199,12 +250,12 @@ class UserProfile extends Component {
               console.log(error);
             });
         } else {
-          that.setState({ msg: "Lösenordet måste vara minst 6 tecken. Försök igen!" });
-
+          that.setState({
+            msg: "Lösenordet måste vara minst 6 tecken. Försök igen!",
+          });
         }
       } else {
         that.setState({ msg: "Fälten får ej vara tomma. Försök igen!" });
-
       }
     }
   }
@@ -212,6 +263,14 @@ class UserProfile extends Component {
   onClickEnableUpload() {
     const fileInput = document.querySelector("#img__upload");
     fileInput.disabled = false;
+  }
+
+  onClickPreviewURL() {
+    const photoUrlInput = document.querySelector('input[name="photoUrl"]')
+      .value;
+
+    let previewOutput = document.querySelector(".card_img-top");
+    previewOutput.src = photoUrlInput;
   }
 
   onImgUploadChange(e) {
@@ -271,7 +330,7 @@ class UserProfile extends Component {
           </div>
         )}
 
-        {this.state.editInfo === "USER_INFO" && ( // Changing user info
+        {this.state.editInfo === "USER_INFO2" && ( // OLD Changing user info
           <form
             className={"input_container"}
             onSubmit={this.onSubmitUpdateProfile.bind(this)}
@@ -305,6 +364,41 @@ class UserProfile extends Component {
               placeholder="Nytt användarnamn"
             />
 
+            <button
+              className={"button__secondary"}
+              onClick={this.onClickEditable.bind(this)}
+            >
+              Avbryt
+            </button>
+            <button className={"button__success"}>Spara</button>
+          </form>
+        )}
+
+        {this.state.editInfo === "USER_INFO" && ( // Changing user info
+          <form
+            className={"input_container"}
+            onSubmit={this.onSubmitUpdateProfile.bind(this)}
+          >
+            {
+              // Confirmation or error message here
+              this.state.msg
+            }
+            Nuvarande profilbild:
+            <img
+              src={this.state.profilePicture}
+              className={"card_img-top"}
+              alt={""}
+            />
+            <input
+              type="text"
+              name="photoUrl"
+              placeholder="URL till ny profilbild: (https://...)"
+            />
+            <input
+              type="username"
+              name="username"
+              placeholder="Nytt användarnamn"
+            />
             <button
               className={"button__secondary"}
               onClick={this.onClickEditable.bind(this)}
