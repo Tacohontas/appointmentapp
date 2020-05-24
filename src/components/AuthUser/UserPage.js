@@ -25,7 +25,7 @@ class UserPage extends Component {
         {!loggedIn ? (
           <UserLogin />
         ) : (
-          <UserProfile/>
+          <UserProfile />
         )}
       </div>
     );

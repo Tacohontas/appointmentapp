@@ -180,7 +180,7 @@ class EditProducts extends Component {
                   "http://localhost:1337" + this.state.chosenProduct.image.url
                 }
                 className={"card_img-top"}
-                alt={"People"}
+                alt={""}
               />
               <label
                 htmlFor={"img__upload"}
