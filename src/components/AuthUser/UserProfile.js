@@ -136,10 +136,10 @@ class UserProfile extends Component {
     if (this.state.editInfo === "USER_INFO") {
       const photoUrlInput = document.querySelector('input[name="photoUrl"]')
         .value;
+      const usernameInput = document.querySelector('input[name="username"]')
+        .value;
 
-      if (photoUrlInput.length > 0) {
-        // fileInput is disabled if we don't want to update image.
-        //
+      if (photoUrlInput.length > 0) { 
         user
           .updateProfile({
             photoURL: photoUrlInput,
@@ -153,31 +153,26 @@ class UserProfile extends Component {
             // An error happened.
             console.log(error);
             that.setState({ msg: "Profilbilden kunde ej uppdateras!" });
-
-            // this.props.dataFromUserProfile(error.message);
           });
-
-        // Create a root reference
       }
 
-      // user
-      //   .updateProfile({
-      //     displayName: e.target.elements.username.value,
-      //   })
-      //   .then(function () {
-      //     // Update successful.
-      //     console.log("displayname updated");
-      //     that.setState({ msg: "Användarnamnet har uppdateras!" });
-      //   })
-      //   .catch(function (error) {
-      //     // An error happened.
-      //     console.log(error);
-      //     that.setState({ msg: "Användarnamnet kunde ej uppdateras!" });
-
-      //     // this.props.dataFromUserProfile(error.message);
-      //   });
+      if (usernameInput.length > 0) {
+        user
+          .updateProfile({
+            displayName: e.target.elements.username.value,
+          })
+          .then(function () {
+            // Update successful.
+            console.log("displayname updated");
+            that.setState({ msg: "Användarnamnet har uppdateras!" });
+          })
+          .catch(function (error) {
+            // An error happened.
+            console.log(error);
+            that.setState({ msg: "Användarnamnet kunde ej uppdateras!" });
+          });
+      }
     }
-
     if (this.state.editInfo === "EMAIL") {
       let passwordInput = document.querySelector('input[name="password"]')
         .value;
@@ -223,8 +218,8 @@ class UserProfile extends Component {
         oldPassword
       );
 
-      if (newPassword.length > 0 && oldPassword > 0) {
-        if (newPassword.length > 5 && oldPassword > 5) {
+      if (newPassword.length > 0 && oldPassword.length > 0) {
+        if (newPassword.length > 5 && oldPassword.length > 5) {
           // Reauthenticate
           user
             .reauthenticateWithCredential(credentials)
@@ -312,9 +307,15 @@ class UserProfile extends Component {
             >
               Ändra lösenord
             </button>
-            <Link to="/Bookings" className="button__secondary">
+            <Link to={{
+              pathname: "/Bookings",
+              state: {
+                user: this.state.providerUId
+               },
+            }}className="button__secondary">
               Mina bokningar
             </Link>
+            
             <button
               className="button__secondary"
               onClick={this.logOut.bind(this)}
@@ -328,50 +329,6 @@ class UserProfile extends Component {
               Ta bort konto
             </button>
           </div>
-        )}
-
-        {this.state.editInfo === "USER_INFO2" && ( // OLD Changing user info
-          <form
-            className={"input_container"}
-            onSubmit={this.onSubmitUpdateProfile.bind(this)}
-          >
-            {
-              // Confirmation or error message here
-              this.state.msg
-            }
-            <img
-              src={this.state.profilePicture}
-              className={"card_img-top"}
-              alt={""}
-            />
-            <label
-              htmlFor={"img__upload"}
-              className={"button__secondary"}
-              onClick={this.onClickEnableUpload.bind(this)}
-            >
-              Ändra bild
-            </label>
-            <input
-              id={"img__upload"}
-              type="file"
-              name="file"
-              onChange={this.onImgUploadChange.bind(this)}
-              disabled
-            />
-            <input
-              type="username"
-              name="username"
-              placeholder="Nytt användarnamn"
-            />
-
-            <button
-              className={"button__secondary"}
-              onClick={this.onClickEditable.bind(this)}
-            >
-              Avbryt
-            </button>
-            <button className={"button__success"}>Spara</button>
-          </form>
         )}
 
         {this.state.editInfo === "USER_INFO" && ( // Changing user info
@@ -394,6 +351,7 @@ class UserProfile extends Component {
               name="photoUrl"
               placeholder="URL till ny profilbild: (https://...)"
             />
+            Nuvarande användarnamn: {this.state.displayName || "inget valt"}
             <input
               type="username"
               name="username"

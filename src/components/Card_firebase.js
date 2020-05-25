@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import firebase from "./FirebaseConfig";
 
-class Card extends Component {
+class Card_firebase extends Component {
   onClickSaveToFirestore() {
     const docRef = firebase
       .firestore()
@@ -19,7 +19,7 @@ class Card extends Component {
   render() {
     return (
       <div className={"card"}>
-        <img src={this.props.image} className={"card_img-top"} alt={"People"} />
+        <img src={this.props.image} className={"card_img-top"} alt={"Product"} />
         <div className={"card__body"}>
           <h3 className={"card__title"}>{this.props.title}</h3>
           <p className={"card__text"}>{this.props.desc}</p>
@@ -37,4 +37,4 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default Card_firebase;

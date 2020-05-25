@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class Card extends Component {
+class CardBooking extends Component {
+  state = {};
+
   render() {
     return (
       <div className={"card"}>
-        <img src={this.props.image} className={"card_img-top"} alt={"People"} />
         <div className={"card__body"}>
           <h3 className={"card__title"}>{this.props.title}</h3>
-          <p className={"card__text"}>{this.props.desc}</p>
+          <p className={"card__text"}>{this.props.date}</p>
+          <p className={"card__text"}>{this.props.time}</p>
           <p className={"card__price"}>{this.props.price}kr</p>
           <Link
             to={{
@@ -17,8 +19,8 @@ class Card extends Component {
                 productId: this.props.docId,
                 title: this.props.title,
                 desc: this.props.desc,
-                price: this.props.price,
-              },
+                price: this.props.price
+               },
             }}
             className={"button__success"}
           >
@@ -30,4 +32,4 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default CardBooking;

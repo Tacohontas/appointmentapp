@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Card from "../components/Card_firebase";
+import Card from "../components/Card_full";
 import axios from "axios";
 
 class Main extends Component {
