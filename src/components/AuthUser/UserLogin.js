@@ -47,7 +47,6 @@ class UserLogin extends Component {
         res.user.updateProfile({
           displayName : displayName
         })
-        // this.props.userCredential(res.user.email); // Skickar tillbaka användarens mail i vår callbackprops
       });
   }
 
