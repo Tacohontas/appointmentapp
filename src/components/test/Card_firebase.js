@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
-import firebase from "./FirebaseConfig";
+import firebase from "../FirebaseConfig";
 
 class Card_firebase extends Component {
   onClickSaveToFirestore() {
