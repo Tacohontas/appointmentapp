@@ -45,14 +45,14 @@ class Upload extends Component {
     )
       .then((response) => {
         // Handle success
-        console.log("Well done");
-        console.log(response);
-        console.log(response.status);
+        // console.log("Well done");
+        // console.log(response);
+        // console.log(response.status);
         this.setState({ status: response.status });
-        console.log("from state:", this.state.status);
+        // console.log("from state:", this.state.status);
       })
       .catch((error) => {
-        console.log("An error occurred", error);
+        // console.log("An error occurred", error);
       });
   }
 

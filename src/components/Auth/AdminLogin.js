@@ -27,15 +27,15 @@ class AdminLogin extends Component {
         password: e.target.elements.password.value,
       })
       .then((response) => {
-        console.log("Well done");
-        console.log("User profile", response.data.user);
-        console.log("User token", response.data.jwt);
+        // console.log("Well done");
+        // console.log("User profile", response.data.user);
+        // console.log("User token", response.data.jwt);
         // localStorage.setItem("userFromLogin", response.data.jwt); // Tillfällig lösning med LS
         this.props.userCredential(response.data.user, response.data.jwt);
 
       })
       .catch((error) => {
-        console.log("An error occurred", error);
+        // console.log("An error occurred", error);
       });
   }
 
@@ -48,15 +48,15 @@ class AdminLogin extends Component {
       })
       .then((response) => {
         // Handle success
-        console.log("Well done");
-        console.log("User profile", response.data.user);
-        console.log("User token", response.data.jwt);
+        // console.log("Well done");
+        // console.log("User profile", response.data.user);
+        // console.log("User token", response.data.jwt);
         // localStorage.setItem("jwtFromLogin", response.data.jwt); // Tillfällig lösning med LS
 
         this.props.userCredential(response.data.user, response.data.jwt);
       })
       .catch((error) => {
-        console.log("An error occurred", error);
+        // console.log("An error occurred", error);
       });
   }
 

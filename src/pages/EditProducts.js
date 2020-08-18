@@ -60,16 +60,16 @@ class EditProducts extends Component {
       },
     })
       .then((response) => {
-        console.log("Well done");
-        console.log(response);
-        console.log(response.status);
+        // console.log("Well done");
+        // console.log(response);
+        // console.log(response.status);
         // this.setState({ chosenProduct: [] });
         if (response.status === 200) {
           this.props.dataFromEditProducts("default", response.status, "Produkt borttagen"); // Skicka tillbaks användare till admin-landing
         }
       })
       .catch((error) => {
-        console.log("An error occurred", error);
+        // console.log("An error occurred", error);
       });
   }
 
@@ -80,18 +80,18 @@ class EditProducts extends Component {
 
   async onSubmitToApi(e) {
     e.preventDefault();
-    console.log(localStorage.getItem("jwt"));
+    // console.log(localStorage.getItem("jwt"));
 
     const fileInput = document.querySelector("#img__upload");
 
     
 
-    // console.log(e.target.elements.id.value);
+    // // console.log(e.target.elements.id.value);
 
     if (!fileInput.disabled) {
       // fileInput is disabled if we don't want to update image.
       // Upload image
-      console.log("input isnt disabled");
+      // console.log("input isnt disabled");
 
       const formData = new FormData();
       formData.append("files", this.state.image);
@@ -109,14 +109,14 @@ class EditProducts extends Component {
       })
         .then((response) => {
           // Handle success
-          console.log("Picture uploaded to post, Well done");
-          console.log(response);
-          console.log(response.status);
+          // console.log("Picture uploaded to post, Well done");
+          // console.log(response);
+          // console.log(response.status);
           this.setState({ status: response.status });
-          console.log("from state:", this.state.status);
+          // console.log("from state:", this.state.status);
         })
         .catch((error) => {
-          console.log("An error occurred", error);
+          // console.log("An error occurred", error);
         });
     }
 
@@ -134,17 +134,17 @@ class EditProducts extends Component {
     })
       .then((response) => {
         // Handle success
-        console.log("Post created, Well done");
-        console.log(response);
-        console.log(response.status);
+        // console.log("Post created, Well done");
+        // console.log(response);
+        // console.log(response.status);
         // this.setState({ status: response.status });
         if (response.status === 200) {
           this.props.dataFromEditProducts("default", response.status, "Produkt ändrad"); // Skicka tillbaks användare till admin-landing
         }
       })
       .catch((error) => {
-        console.log("An error occurred", error);
-        // console.log(data);
+        // console.log("An error occurred", error);
+        // // console.log(data);
       });
   }
 

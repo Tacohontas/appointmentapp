@@ -8,7 +8,6 @@ import Navbar from "./Navbar";
 import Book from "../pages/Book";
 import AdminZone from "../pages/Adminzone";
 import EditProducts from "../pages/EditProducts";
-import FirebaseTest from "./Firebasetest";
 // import UserLogin from "./AuthUser/UserLogin";
 import UserProfile from "./AuthUser/UserProfile";
 import UserPage from "./AuthUser/UserPage";
@@ -22,12 +21,10 @@ class Approute extends Component {
   };
 
   componentDidMount() {
-    console.log("approute mounted");
     this.setState({ adminLoginStatus: localStorage.getItem("jwt") });
   }
 
   componentDidUpdate() {
-    console.log("approute updated");
   }
 
   render() {
@@ -65,8 +62,6 @@ class Approute extends Component {
             <Route exact path="/forgotpassword" component={ForgotPassword}/>
             <Route exact path="/userpage" component={UserPage} />
             <Route exact path="/userprofile" component={UserProfile} />
-            {/* Tester */}
-            <Route exact path="/firebasetest" component={FirebaseTest} />
           </Switch>
         </BrowserRouter>
       </div>

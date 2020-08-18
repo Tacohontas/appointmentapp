@@ -14,8 +14,8 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
-console.log(firebaseConfig.apiKey);
-console.log(process.env.REACT__APP_API_KEY);
+// console.log(firebaseConfig.apiKey);
+// console.log(process.env.REACT__APP_API_KEY);
 
 
 

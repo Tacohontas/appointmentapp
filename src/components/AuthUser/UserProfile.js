@@ -76,15 +76,15 @@ class UserProfile extends Component {
       .catch(function (error) {
         // use 'that' variable here
         that.setState({ errorMessage: error.message });
-        console.log(error);
+        // console.log(error);
       });
   }
 
   async onSubmitUpdateProfile(e) {
     e.preventDefault();
-    console.log("submit");
+    // console.log("submit");
 
-    console.log(e);
+    // console.log(e);
     // Use 'that' when wanting to set state inside of promise.
     var that = this;
 
@@ -96,7 +96,7 @@ class UserProfile extends Component {
       if (!fileInput.disabled) {
         // fileInput is disabled if we don't want to update image.
         // Upload image
-        console.log("input isnt disabled");
+        // console.log("input isnt disabled");
 
         // Create a root reference
         var storageRef = firebase
@@ -106,11 +106,11 @@ class UserProfile extends Component {
         storageRef
           .put(this.state.imageToUpload)
           .then(function (snapshot) {
-            console.log("Uploaded a blob or file!");
+            // console.log("Uploaded a blob or file!");
           })
           .catch(function (error) {
             // An error happened.
-            console.log(error);
+            // console.log(error);
           });
       }
 
@@ -121,12 +121,12 @@ class UserProfile extends Component {
         })
         .then(function () {
           // Update successful.
-          console.log("displayname updated");
+          // console.log("displayname updated");
           that.setState({ msg: "Användarnamnet har uppdateras!" });
         })
         .catch(function (error) {
           // An error happened.
-          console.log(error);
+          // console.log(error);
           that.setState({ msg: "Användarnamnet kunde ej uppdateras!" });
 
           // this.props.dataFromUserProfile(error.message);
@@ -146,12 +146,12 @@ class UserProfile extends Component {
           })
           .then(function () {
             // Update successful.
-            console.log("photoURL updated");
+            // console.log("photoURL updated");
             that.setState({ msg: "Profilbilden har uppdateras!" });
           })
           .catch(function (error) {
             // An error happened.
-            console.log(error);
+            // console.log(error);
             that.setState({ msg: "Profilbilden kunde ej uppdateras!" });
           });
       }
@@ -163,12 +163,12 @@ class UserProfile extends Component {
           })
           .then(function () {
             // Update successful.
-            console.log("displayname updated");
+            // console.log("displayname updated");
             that.setState({ msg: "Användarnamnet har uppdateras!" });
           })
           .catch(function (error) {
             // An error happened.
-            console.log(error);
+            // console.log(error);
             that.setState({ msg: "Användarnamnet kunde ej uppdateras!" });
           });
       }
@@ -191,17 +191,17 @@ class UserProfile extends Component {
             .then(function () {
               // Update successful.
               that.setState({ msg: "Email uppdaterades!" });
-              console.log("email updated");
+              // console.log("email updated");
             })
             .catch(function (error) {
               // An error happened.
               that.setState({ msg: "Kunde inte byta mailadress." });
 
-              console.log(error);
+              // console.log(error);
             });
         })
         .catch(function (error) {
-          console.log(error);
+          // console.log(error);
           that.setState({ msg: "Fel lösenord. Försök igen" });
         });
     }
@@ -229,20 +229,20 @@ class UserProfile extends Component {
                 .updatePassword(newPassword)
                 .then(function () {
                   // Update successful.
-                  console.log("password updated");
+                  // console.log("password updated");
                   that.setState({ msg: "Lösenord uppdaterades!" });
                 })
                 .catch(function (error) {
                   // An error happened.
                   that.setState({ msg: "Lösenord kunde ej uppdateras!" });
 
-                  console.log(error.message);
+                  // console.log(error.message);
                 });
             })
             .catch(function (error) {
               that.setState({ msg: "Fel lösenord. Försök igen!" });
 
-              console.log(error);
+              // console.log(error);
             });
         } else {
           that.setState({

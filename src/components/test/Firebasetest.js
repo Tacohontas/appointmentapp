@@ -11,9 +11,9 @@ class FirebaseTest extends Component {
     // Läser data från firebase
     docRef.get().then((booking) => {
       if (booking.exists) {
-        console.log("document data: ", booking.data());
+        // console.log("document data: ", booking.data());
       } else {
-        console.log("error");
+        // console.log("error");
       }
     });
 

@@ -17,7 +17,7 @@ class Adminform extends Component {
       image: "tillfällig data"
     });
 
-    console.log(res);
+    // console.log(res);
     
 
   }

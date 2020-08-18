@@ -16,7 +16,7 @@ class ForgotPassword extends Component {
       .sendPasswordResetEmail(emailAddress) // Skickar ett reset pw-mail till adress i input:mail
       .then(function () {
         // Email sent.
-        // console.log("Email sent");
+        // // console.log("Email sent");
         success = true;
       })
       .catch(function (error) {

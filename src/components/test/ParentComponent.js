@@ -12,7 +12,7 @@ export default class ParentComponent extends Component {
         <Child
           testing={"test text from parent"}
           callback={(e) => {
-            console.log(e, "parent fångar in data");
+            // console.log(e, "parent fångar in data");
           }}
         />
       </div>

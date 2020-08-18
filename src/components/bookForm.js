@@ -31,11 +31,11 @@ class BookForm extends Component {
           phone: e.target.elements.phone.value,
         })
         .then(function (docRef) {
-          console.log("Document written with ID: ", docRef.id);
+          // // console.log("Document written with ID: ", docRef.id);
           that.setState({msg: "Bokningen lyckades!"})
         })
         .catch(function (error) {
-          console.error("Error adding document: ", error);
+          // console.error("Error adding document: ", error);
           that.setState({msg: "Bokningen kunde ej genomföras tyvärr!"})
 
         });

@@ -17,7 +17,7 @@ class myBookings extends Component {
       .get()
       .then((querySnapshot) => {
         const data = querySnapshot.docs.map((doc) => doc.data());
-        console.log(data);
+        // console.log(data);
         this.setState({ userBookings: data });
       });
   }

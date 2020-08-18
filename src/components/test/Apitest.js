@@ -8,7 +8,7 @@ class Apitest extends Component {
     axios
     .get("http://localhost:1337/products")
     .then((res) => {
-        console.log(res);
+        // console.log(res);
         
       this.setState({ 
           dataFromApi_title: res.data[0].title,

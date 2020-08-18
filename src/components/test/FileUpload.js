@@ -21,7 +21,7 @@ class FileUpload extends Component {
 
     const res = await axios.post("http://localhost:1337/upload/", data);
 
-    console.log(res);
+    // console.log(res);
   }
 
   render() {
