@@ -60,7 +60,7 @@ class BookFormModal extends Component {
           that.setState({ msg: "Bokningen lyckades!" });
         })
         .catch(function (error) {
-          console.error("Error adding document: ", error);
+        //   console.error("Error adding document: ", error);
           that.setState({ msg: "Bokningen kunde ej genomföras tyvärr!" });
         });
     } else{
